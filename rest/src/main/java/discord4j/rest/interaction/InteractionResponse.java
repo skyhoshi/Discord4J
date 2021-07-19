@@ -64,12 +64,30 @@ public interface InteractionResponse {
      * token.
      *
      * @param request the message request to be sent as followup
-     * @param wait whether to wait until the webhook is sent or fails, influences whether you can get an error
-     * through the return {@code Mono}.
      * @return a {@link Mono} where, upon successful completion, emits the sent message. If an error is received,
      * it is emitted through the {@code Mono}.
      */
-    Mono<MessageData> createFollowupMessage(MultipartRequest<WebhookExecuteRequest> request, boolean wait);
+    Mono<MessageData> createFollowupMessage(MultipartRequest<WebhookExecuteRequest> request);
+
+    /**
+     * Create a new ephemeral followup message with the given content. This uses a webhook tied to the interaction ID
+     * and token.
+     *
+     * @param content the text content included in the followup
+     * @return a {@link Mono} where, upon successful completion, emits the sent message. If an error is received,
+     * it is emitted through the {@code Mono}.
+     */
+    Mono<MessageData> createFollowupMessageEphemeral(String content);
+
+    /**
+     * Create a new ephemeral followup message using the provided request. This uses a webhook tied to the interaction
+     * ID and token.
+     *
+     * @param request the message request to be sent as followup
+     * @return a {@link Mono} where, upon successful completion, emits the sent message. If an error is received,
+     * it is emitted through the {@code Mono}.
+     */
+    Mono<MessageData> createFollowupMessageEphemeral(MultipartRequest<WebhookExecuteRequest> request);
 
     /**
      * Modify the given message by ID using the provided request. This uses a webhook tied to the interaction ID and
